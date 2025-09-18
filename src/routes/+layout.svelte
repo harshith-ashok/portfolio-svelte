@@ -38,6 +38,6 @@
 		</div>
 	</nav>
 	<div class="pl-20 pt-10">
-		{@render children()}
+		<slot />
 	</div>
 </main>
