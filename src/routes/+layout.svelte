@@ -9,6 +9,7 @@
 		{ name: 'Contact', path: '/contact' }
 	];
 	let { children } = $props();
+	export const prerender = true;
 </script>
 
 <svelte:head>

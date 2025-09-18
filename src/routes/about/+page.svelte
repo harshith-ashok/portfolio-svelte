@@ -15,6 +15,7 @@
 			stagger: 0.05
 		});
 	});
+	export const prerender = true;
 </script>
 
 <div class="flex h-screen flex-col">
