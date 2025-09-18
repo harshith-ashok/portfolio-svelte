@@ -1,5 +1,4 @@
 <script lang="ts">
-	export const prerender = true;
 	import favicon from '$lib/assets/favicon.svg';
 	import '../app.css';
 	import { page } from '$app/stores';
@@ -39,6 +38,6 @@
 		</div>
 	</nav>
 	<div class="pl-20 pt-10">
-		{@render children?.()}
+		{@render children()}
 	</div>
 </main>
