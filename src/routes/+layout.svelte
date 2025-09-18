@@ -1,4 +1,5 @@
 <script lang="ts">
+	export const prerender = true;
 	import favicon from '$lib/assets/favicon.svg';
 	import '../app.css';
 	import { page } from '$app/stores';
@@ -9,7 +10,6 @@
 		{ name: 'Contact', path: '/contact' }
 	];
 	let { children } = $props();
-	export const prerender = true;
 </script>
 
 <svelte:head>

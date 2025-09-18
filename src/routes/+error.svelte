@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	export const prerender = true;
 </script>
 
 <div class="flex flex-col gap-20 items-center">

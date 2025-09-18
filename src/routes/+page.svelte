@@ -1,4 +1,5 @@
 <script>
+	export const prerender = true;
 	import { gsap } from 'gsap';
 	import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 	import { SplitText } from 'gsap/SplitText';
