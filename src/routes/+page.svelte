@@ -1,6 +1,5 @@
 <script>
 	import { gsap } from 'gsap';
-	import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 	import { SplitText } from 'gsap/SplitText';
 	import { onMount } from 'svelte';
 	const skills = ['Python', 'Angular', 'Frappe', 'Typescript', 'NodeJS', 'SvelteKit'];
