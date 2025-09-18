@@ -28,14 +28,8 @@
 			langs: ['svelte', 'typescript', 'vercel']
 		}
 	];
-	gsap.registerPlugin(ScrambleTextPlugin);
+
 	onMount(() => {
-		// gsap.to('#text', 2, {
-		// 	scrambleText: {
-		// 		text: 'ERP ARCHITECT AND FULL STACK DEVELOPER.',
-		// 		chars: 'uppercase'
-		// 	}
-		// });
 		let splitHeading = SplitText.create('#text', {
 			type: 'chars, words, lines'
 		});
