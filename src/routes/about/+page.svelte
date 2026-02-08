@@ -4,59 +4,165 @@
 	import { onMount } from 'svelte';
 
 	onMount(() => {
-		let splitHeading = SplitText.create('#text', {
+		// Split heading animation
+		const splitHeading = SplitText.create('#text', {
 			type: 'chars, words, lines'
 		});
-		gsap.from(splitHeading.chars, {
-			y: 100,
-			autoAlpha: 0,
-			// delay: 0.1,
-			duration: 0.3,
-			stagger: 0.05
+
+		gsap.fromTo(
+			splitHeading.chars,
+			{ y: 50, autoAlpha: 0 },
+			{
+				y: 0,
+				autoAlpha: 1,
+				duration: 0.5,
+				stagger: 0.05,
+				ease: 'power3.out'
+			}
+		);
+
+		// About cards animation
+		gsap.fromTo(
+			'.about-card',
+			{ y: 50, autoAlpha: 0 },
+			{
+				y: 0,
+				autoAlpha: 1,
+				duration: 0.8,
+				stagger: 0.2,
+				delay: 0.3,
+				ease: 'power3.out'
+			}
+		);
+
+		// Create animated grid background
+		createGrid();
+
+		// Parallax scroll effect for grid
+		gsap.to('#grid', {
+			y: 200,
+			ease: 'none',
+			scrollTrigger: {
+				trigger: 'main',
+				start: 'top top',
+				end: 'bottom top',
+				scrub: true
+			}
 		});
 	});
+
+	function createGrid() {
+		const grid = document.getElementById('grid');
+		if (!grid) return;
+		grid.innerHTML = '';
+
+		const cols = 20;
+		const rows = 20;
+
+		for (let i = 0; i < cols; i++) {
+			const line = document.createElement('div');
+			line.className = 'absolute w-[1px] h-full bg-white/10';
+			line.style.left = `${(i / cols) * 100}%`;
+			grid.appendChild(line);
+
+			gsap.to(line, {
+				scaleY: Math.random() * 0.6 + 0.4,
+				duration: Math.random() * 2 + 1,
+				repeat: -1,
+				yoyo: true,
+				ease: 'sine.inOut'
+			});
+		}
+
+		for (let i = 0; i < rows; i++) {
+			const line = document.createElement('div');
+			line.className = 'absolute h-[1px] w-full bg-white/10';
+			line.style.top = `${(i / rows) * 100}%`;
+			grid.appendChild(line);
+
+			gsap.to(line, {
+				scaleX: Math.random() * 0.6 + 0.4,
+				duration: Math.random() * 2 + 1,
+				repeat: -1,
+				yoyo: true,
+				ease: 'sine.inOut'
+			});
+		}
+	}
 </script>
 
-<div class="flex h-screen flex-col">
-	<div class="text-[5vh] md:text-[10vh] w-2/3 font-anton leading-tight tracking-wide" id="text">
+<main
+	class="bg-black text-white min-h-screen flex flex-col items-start px-8 md:px-20 py-16 relative overflow-hidden"
+>
+	<!-- Animated Grid -->
+	<div id="grid" class="fixed inset-0 opacity-20 pointer-events-none z-0"></div>
+
+	<!-- Heading -->
+	<div
+		id="text"
+		class="text-[8vw] md:text-[6rem] font-anton leading-tight tracking-wide mb-12 relative z-10"
+	>
 		ABOUT ME
 	</div>
-	<div class="py-10">
-		<div
-			class="p-10 w-2/3 bg-white h-fit rounded-lg border-[0.1px] shadow-md hover:shadow-lg transition-all duration-230"
-		>
-			<ul class="list flex flex-col gap-1 pl-5 space-y-2 text-gray-700">
-				<li>I'm a coffee sipping programmer who loves crafting digital solutions.</li>
-				<li>
-					I'm skilled in a wide range of technologies, from web development to embedded systems.
-				</li>
-				<li>
-					On the web development front, I'm proficient in both front-end and back-end development.
-				</li>
-				<li>
-					I use languages like
-					<b class="font-bold">JavaScript</b>, <b class="font-bold">HTML</b>, and
-					<b class="font-bold">CSS</b> to create dynamic and visually appealing user interfaces.
-				</li>
-				<li>
-					I've worked with popular frameworks like
-					<b class="font-bold">React</b>, <b class="font-bold">Vue</b>, and
-					<b class="font-bold">Angular</b> to build complex web applications.
-				</li>
-				<li>
-					On the back-end, I've gained experience with <b class="font-bold">Python</b>,
-					<b class="font-bold">Node.js</b>, and frameworks like
-					<b class="font-bold">Django</b> and <b class="font-bold">Express</b> to power server-side logic
-					and data management.
-				</li>
-				<li>
-					I also work with full-blown enteprise applications and build apps with
-					<b class="font-bold">Frappe</b>.
-				</li>
-			</ul>
-		</div>
+
+	<!-- About Card -->
+	<div
+		class="about-card bg-zinc-900 border border-zinc-700 rounded-2xl p-10 shadow-lg max-w-3xl w-full mb-12 relative z-10 opacity-100"
+	>
+		<ul class="list-disc pl-6 space-y-3 text-zinc-300 text-lg">
+			<li>I'm a coffee sipping programmer who loves crafting digital solutions.</li>
+			<li>Skilled in a wide range of technologies, from web development to embedded systems.</li>
+			<li>Proficient in both front-end and back-end development for web projects.</li>
+			<li>
+				I use languages like <b class="text-white font-bold">JavaScript</b>,
+				<b class="text-white font-bold">HTML</b>, and <b class="text-white font-bold">CSS</b>.
+			</li>
+			<li>
+				Worked with frameworks like <b class="text-white font-bold">React</b>,
+				<b class="text-white font-bold">Vue</b>, and <b class="text-white font-bold">Angular</b>.
+			</li>
+			<li>
+				On the back-end, experienced with <b class="text-white font-bold">Python</b>,
+				<b class="text-white font-bold">Node.js</b>, <b class="text-white font-bold">Django</b> and
+				<b class="text-white font-bold">Express</b>.
+			</li>
+			<li>
+				I also work with enterprise applications and build apps with <b class="text-white font-bold"
+					>Frappe</b
+				>.
+			</li>
+		</ul>
 	</div>
-	<div>
-		<p class="text-3xl font-thin">Experience</p>
+
+	<!-- Experience Section -->
+	<div
+		class="about-card bg-zinc-900 border border-zinc-700 rounded-2xl p-10 shadow-lg max-w-3xl w-full relative z-10 opacity-100"
+	>
+		<p class="text-3xl md:text-4xl font-anton mb-6 text-white">Experience</p>
+		<ul class="list-disc pl-6 space-y-2 text-zinc-300 text-lg">
+			<li>Developed multiple full-stack web applications using modern frameworks.</li>
+			<li>Worked on AI/ML projects, implementing prediction and data visualization tools.</li>
+			<li>Built ERP modules and automation tools using Frappe framework.</li>
+			<li>Created REST APIs and type-safe clients with TypeScript and Node.js.</li>
+			<li>Experience with both small-scale projects and large enterprise systems.</li>
+		</ul>
 	</div>
-</div>
+</main>
+
+<style>
+	:global(body) {
+		background: #000;
+		color: #fff;
+		font-family: 'Inter', sans-serif;
+	}
+	.hero span {
+		display: inline-block;
+		margin-right: 0.25em;
+	}
+	.about-card b {
+		color: #fff;
+	}
+	ul li {
+		line-height: 1.8;
+	}
+</style>
